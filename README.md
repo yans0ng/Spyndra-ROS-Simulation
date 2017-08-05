@@ -7,7 +7,7 @@ This project assumes using [ROS Indigo](http://wiki.ros.org/indigo/Installation)
 1. Suppose you have not create your ROS workspace. You can create one by the command.
 
    ```
-   $ mkidr -p ~/catkin_ws/src
+   $ mkdir -p ~/catkin_ws/src
    ```
 
 2. Go to the workspace and download the repository.
