@@ -1,0 +1,8 @@
+<launch>
+  <param name="robot_description" command="cat $(find spyndra_ros_simulation)/urdf/01-basic.urdf"/>
+  <arg name="rvizconfig" default="$(find spyndra_ros_simulation)/config/01-basic.rviz" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+  <node name="basicmove" pkg="spyndra_ros_simulation" type="basicmove"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+</launch>
+

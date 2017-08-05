@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<robot name="myfirst">
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <material name="black">
+    <color rgba="0 0 0 0.9"/>
+  </material>
+
+  <material name="red">
+    <color rgba="1 0 0 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 0.9"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.136 0.136 0.09441" />
+      </geometry>
+      <material name="black"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.01"/>
+    </visual>
+  </link>
+
+  <link name="femur_1">
+    <visual>
+      <geometry>
+        <box size="0.127 0.0848 0.04"/>
+      </geometry>
+      <material name="red"/>
+      <origin xyz="0.0635 0 0" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <link name="tibia_1">
+    <visual>
+      <geometry>
+        <cylinder length="0.18435" radius="0.02"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 1.57075 0" xyz="0.092175 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="motor_f1" type="revolute">
+    <parent link="base_link"/>
+    <child link="femur_1"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0.0508 0 0"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+  <joint name="motor_t1" type="revolute">
+    <parent link="femur_1"/>
+    <child link="tibia_1"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0.127 0 0"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+</robot>
