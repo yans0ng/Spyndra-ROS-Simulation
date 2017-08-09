@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot>
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/spyndra</robotNamespace>
+      <!--robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType-->
+    </plugin>
+  </gazebo>
+  <!-- IMU sensor -->
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>base_link</bodyName>
+      <topicName>imu</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+  </gazebo>
+
+  <!-- Chassis -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- Femurs -->
+  <gazebo reference="femur_1">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="femur_2">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="femur_3">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="femur_4">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <!-- Tibias -->
+  <gazebo reference="tibia_1">
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="tibia_2">
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="tibia_3">
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="tibia_4">
+    <material>Gazebo/White</material>
+  </gazebo>
+
+</robot>

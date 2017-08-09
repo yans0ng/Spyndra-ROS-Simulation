@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<robot name="simple_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <!-- color -->
-  <material name="blue">
+<robot name="spyndra" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Rviz colors -->
+  <!--material name="blue">
     <color rgba="0 0 0.8 1"/>
   </material>
 
@@ -15,7 +15,7 @@
 
   <material name="white">
     <color rgba="1 1 1 1"/>
-  </material>
+  </material-->
 
   <!-- constants -->
   <xacro:property name="lc1" value="0.068"/>
@@ -33,13 +33,17 @@
   <xacro:property name="mf" value="0.16076767"/>
   <xacro:property name="mt" value="0.08869082"/>
 
+  <!-- Import all Gazebo-customization elements -->
+  <xacro:include filename="$(find spyndra_description)/urdf/spyndra.gazebo" />
+  <xacro:include filename="$(find spyndra_description)/urdf/materials.xacro" />
+
   <!-- links -->
   <link name="base_link">
     <collision>
       <geometry>
         <box size="${2*lc1} ${2*lc1} ${hc1}" />
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 ${hc2}"/>
+      <origin rpy="0 0 0" xyz="0 0 ${hc1/2}"/>
     </collision>
     <visual>
       <geometry>
@@ -320,14 +324,28 @@
     <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
   </joint>
 
-  <gazebo>
-    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
-      <alwaysOn>true</alwaysOn>
-      <bodyName>base_link</bodyName>
-      <topicName>imu</topicName>
-      <serviceName>imu_service</serviceName>
-      <gaussianNoise>0.0</gaussianNoise>
-      <updateRate>20.0</updateRate>
-    </plugin>
-  </gazebo>
+  <!-- Actuators -->
+  <transmission name="tran_f1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="motor_f1">
+      <!--hardwareInterface>EffortJointInterface</hardwareInterface-->
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="servo_f1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_t1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="motor_t1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="servo_t1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
 </robot>
