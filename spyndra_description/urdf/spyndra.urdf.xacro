@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+<robot name="simple_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- color -->
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
+  <material name="red">
+    <color rgba="1 0 0 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <!-- constants -->
+  <xacro:property name="lc1" value="0.068"/>
+  <xacro:property name="lc2" value="0.0508"/>
+  <xacro:property name="hc1" value="0.09441"/>
+  <xacro:property name="hc2" value="0.01"/>
+  <xacro:property name="lf" value="0.127"/>
+  <xacro:property name="wf" value="0.0848"/>
+  <xacro:property name="hf" value="0.04"/>
+  <xacro:property name="lt" value="0.18858"/>
+  <xacro:property name="rt" value="0.017"/>
+  <xacro:property name="dt" value="0.21227"/>
+  <xacro:property name="pi" value="3.1415926535897931"/>
+  <xacro:property name="mc" value="0.18225809"/>
+  <xacro:property name="mf" value="0.16076767"/>
+  <xacro:property name="mt" value="0.08869082"/>
+
+  <!-- links -->
+  <link name="base_link">
+    <collision>
+      <geometry>
+        <box size="${2*lc1} ${2*lc1} ${hc1}" />
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 ${hc2}"/>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="${2*lc1} ${2*lc1} ${hc1}" />
+      </geometry>
+      <material name="black"/>
+      <origin rpy="0 0 0" xyz="0 0 ${hc1/2}"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
+      <mass value="${mc}"/>
+      <inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
+        iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
+        izz="${mc/6*4*lc1*lc1}" ixz="0"/>
+    </inertial>
+  </link>
+
+  <link name="femur_1">
+    <collision>
+      <geometry>
+        <box size="${lf} ${wf} ${hf}"/>
+      </geometry>
+      <material name="red"/>
+      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="${lf} ${wf} ${hf}"/>
+      </geometry>
+      <material name="red"/>
+      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+    </visual>
+    <inertial>
+      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <mass value="${mf}"/>
+      <inertia ixx="${mf/12*(wf*wf+hf*hf)}" ixy="0"
+        iyy="${mf/3*lf*lf+mf/12*wf*wf}" iyz="0"
+        izz="${mf/3*lf*lf+mf/12*hf*hf}" ixz="0"/>
+    </inertial>
+  </link>
+
+  <link name="tibia_1">
+    <collision>
+      <geometry>
+        <cylinder length="${lt}" radius="${rt}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <cylinder length="${lt}" radius="${rt}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+    </visual>
+    <inertial>
+      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
+      <mass value="${mt}"/>
+      <inertia ixx="${mt/2*rt*rt}" ixy="0"
+        iyy="${mt/3*lt*lt}" iyz="0"
+        izz="${mt/3*lt*lt}" ixz="0"/>
+    </inertial>
+  </link>
+
+  <link name="femur_2">
+    <collision>
+      <geometry>
+        <box size="${lf} ${wf} ${hf}"/>
+      </geometry>
+      <material name="red"/>
+      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="${lf} ${wf} ${hf}"/>
+      </geometry>
+      <material name="red"/>
+      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
+      <mass value="${mc}"/>
+      <inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
+        iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
+        izz="${mc/6*4*lc1*lc1}" ixz="0"/>
+    </inertial>
+  </link>
+
+  <link name="tibia_2">
+    <collision>
+      <geometry>
+        <cylinder length="${lt}" radius="${rt}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <cylinder length="${lt}" radius="${rt}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+    </visual>
+    <inertial>
+      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
+      <mass value="${mt}"/>
+      <inertia ixx="${mt/2*rt*rt}" ixy="0"
+        iyy="${mt/3*lt*lt}" iyz="0"
+        izz="${mt/3*lt*lt}" ixz="0"/>
+    </inertial>
+  </link>
+
+  <link name="femur_3">
+    <collision>
+      <geometry>
+        <box size="${lf} ${wf} ${hf}"/>
+      </geometry>
+      <material name="red"/>
+      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="${lf} ${wf} ${hf}"/>
+      </geometry>
+      <material name="red"/>
+      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
+      <mass value="${mc}"/>
+      <inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
+        iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
+        izz="${mc/6*4*lc1*lc1}" ixz="0"/>
+    </inertial>
+    <inertial>
+      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
+      <mass value="${mt}"/>
+      <inertia ixx="${mt/2*rt*rt}" ixy="0"
+        iyy="${mt/3*lt*lt}" iyz="0"
+        izz="${mt/3*lt*lt}" ixz="0"/>
+    </inertial>
+  </link>
+
+  <link name="tibia_3">
+    <collision>
+      <geometry>
+        <cylinder length="${lt}" radius="${rt}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <cylinder length="${lt}" radius="${rt}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+    </visual>
+    <inertial>
+      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
+      <mass value="${mt}"/>
+      <inertia ixx="${mt/2*rt*rt}" ixy="0"
+        iyy="${mt/3*lt*lt}" iyz="0"
+        izz="${mt/3*lt*lt}" ixz="0"/>
+    </inertial>
+  </link>
+
+  <link name="femur_4">
+    <collision>
+      <geometry>
+        <box size="${lf} ${wf} ${hf}"/>
+      </geometry>
+      <material name="red"/>
+      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="${lf} ${wf} ${hf}"/>
+      </geometry>
+      <material name="red"/>
+      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
+      <mass value="${mc}"/>
+      <inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
+        iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
+        izz="${mc/6*4*lc1*lc1}" ixz="0"/>
+    </inertial>
+  </link>
+
+  <link name="tibia_4">
+    <collision>
+      <geometry>
+        <cylinder length="${lt}" radius="${rt}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <cylinder length="${lt}" radius="${rt}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+    </visual>
+    <inertial>
+      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
+      <mass value="${mt}"/>
+      <inertia ixx="${mt/2*rt*rt}" ixy="0"
+        iyy="${mt/3*lt*lt}" iyz="0"
+        izz="${mt/3*lt*lt}" ixz="0"/>
+    </inertial>
+  </link>
+
+  <joint name="motor_f1" type="revolute">
+    <parent link="base_link"/>
+    <child link="femur_1"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="${lc2} 0 ${hc2+hc1/2}"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+  <joint name="motor_t1" type="revolute">
+    <parent link="femur_1"/>
+    <child link="tibia_1"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 ${dt} 0" xyz="${lf} 0 0"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+  <joint name="motor_f2" type="revolute">
+    <parent link="base_link"/>
+    <child link="femur_2"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 ${-pi/2}" xyz="0 ${-lc2} ${hc2+hc1/2}"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+  <joint name="motor_t2" type="revolute">
+    <parent link="femur_2"/>
+    <child link="tibia_2"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 ${dt} 0" xyz="${lf} 0 0"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+  <joint name="motor_f3" type="revolute">
+    <parent link="base_link"/>
+    <child link="femur_3"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 ${-pi}" xyz="${-lc2} 0 ${hc2+hc1/2}"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+  <joint name="motor_t3" type="revolute">
+    <parent link="femur_3"/>
+    <child link="tibia_3"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 ${dt} 0" xyz="${lf} 0 0"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+  <joint name="motor_f4" type="revolute">
+    <parent link="base_link"/>
+    <child link="femur_4"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 ${pi/2}" xyz="0 ${lc2} ${hc2+hc1/2}"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+  <joint name="motor_t4" type="revolute">
+    <parent link="femur_4"/>
+    <child link="tibia_4"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 ${dt} 0" xyz="${lf} 0 0"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
+  </joint>
+
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>base_link</bodyName>
+      <topicName>imu</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+  </gazebo>
+</robot>
