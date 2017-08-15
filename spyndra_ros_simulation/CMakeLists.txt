@@ -199,3 +199,5 @@ include_directories(
 # catkin_add_nosetests(test)
 add_executable(basicmove src/basicmove.cpp)
 target_link_libraries(basicmove ${catkin_LIBRARIES})
+add_executable(readcsv src/readcsv.cpp)
+target_link_libraries(readcsv ${catkin_LIBRARIES})
