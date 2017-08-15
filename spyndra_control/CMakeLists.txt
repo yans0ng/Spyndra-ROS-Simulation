@@ -10,6 +10,8 @@ project(spyndra_control)
 find_package(catkin REQUIRED COMPONENTS
   ros_control
   ros_controllers
+  roscpp
+  rospy
 )
 
 ## System dependencies are found with CMake's conventions
@@ -196,3 +198,6 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+add_executable(harmonic_walk src/harmonic_walk.cpp)
+target_link_libraries(harmonic_walk ${catkin_LIBRARIES})
