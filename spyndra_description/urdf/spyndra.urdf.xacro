@@ -1,22 +1,5 @@
 <?xml version="1.0"?>
 <robot name="spyndra" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <!-- Rviz colors -->
-  <!--material name="blue">
-    <color rgba="0 0 0.8 1"/>
-  </material>
-
-  <material name="black">
-    <color rgba="0 0 0 1"/>
-  </material>
-
-  <material name="red">
-    <color rgba="1 0 0 1"/>
-  </material>
-
-  <material name="white">
-    <color rgba="1 1 1 1"/>
-  </material-->
-
   <!-- constants -->
   <xacro:property name="lc1" value="0.068"/>
   <xacro:property name="lc2" value="0.0508"/>
@@ -29,9 +12,9 @@
   <xacro:property name="rt" value="0.017"/>
   <xacro:property name="dt" value="0.21227"/>
   <xacro:property name="pi" value="3.1415926535897931"/>
-  <xacro:property name="mc" value="0.18225809"/>
-  <xacro:property name="mf" value="0.16076767"/>
-  <xacro:property name="mt" value="0.08869082"/>
+  <xacro:property name="mc" value="0.23069271"/>
+  <xacro:property name="mf" value="0.20096365"/>
+  <xacro:property name="mt" value="0.10764861"/>
 
   <!-- Import all Gazebo-customization elements -->
   <xacro:include filename="$(find spyndra_description)/urdf/spyndra.gazebo" />
