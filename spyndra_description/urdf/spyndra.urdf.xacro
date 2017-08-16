@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <robot name="spyndra" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- constants -->
+  <xacro:property name="pi" value="3.1415926535897931"/>
+  <!-- component length -->
   <xacro:property name="lc1" value="0.068"/>
   <xacro:property name="lc2" value="0.0508"/>
   <xacro:property name="hc1" value="0.09441"/>
@@ -11,10 +13,17 @@
   <xacro:property name="lt" value="0.18858"/>
   <xacro:property name="rt" value="0.017"/>
   <xacro:property name="dt" value="0.21227"/>
-  <xacro:property name="pi" value="3.1415926535897931"/>
+  <!-- component mass -->
   <xacro:property name="mc" value="0.23069271"/>
   <xacro:property name="mf" value="0.20096365"/>
   <xacro:property name="mt" value="0.10764861"/>
+  <!-- inertia offsets -->
+  <xacro:property name="fx" value="-0.0006" />
+  <xacro:property name="fy" value="0.0" />
+  <xacro:property name="fz" value="-0.05762" />
+  <xacro:property name="tx" value="-0.06001" />
+  <xacro:property name="ty" value="0.0" />
+  <xacro:property name="tz" value="0.0102" />
 
   <!-- Import all Gazebo-customization elements -->
   <xacro:include filename="$(find spyndra_description)/urdf/spyndra.gazebo" />
@@ -38,9 +47,14 @@
     <inertial>
       <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
+      <!-- Simple geometry -->
+      <!--inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
         iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
-        izz="${mc/6*4*lc1*lc1}" ixz="0"/>
+        izz="${mc/6*4*lc1*lc1}" ixz="0"/-->
+      <!-- From CAD file -->
+      <inertia ixx="0.00029636" ixy="0.00000019"
+        iyy="0.00028197" iyz = "-0.00000269"
+        izz="0.00044786" ixz="-0.00000106" />
     </inertial>
   </link>
 
@@ -62,9 +76,17 @@
     <inertial>
       <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
       <mass value="${mf}"/>
-      <inertia ixx="${mf/12*(wf*wf+hf*hf)}" ixy="0"
+      <!-- Simple geometry -->
+      <!--inertia ixx="${mf/12*(wf*wf+hf*hf)}" ixy="0"
         iyy="${mf/3*lf*lf+mf/12*wf*wf}" iyz="0"
-        izz="${mf/3*lf*lf+mf/12*hf*hf}" ixz="0"/>
+        izz="${mf/3*lf*lf+mf/12*hf*hf}" ixz="0"/-->
+      <!-- From CAD file -->
+      <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
+        ixy="${        0.0-mf*fx*fy}"
+        iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
+        iyz="${-0.00000002-mf*fy*fz}"
+        izz="${ 0.00013756+mf*(fx*fx+fy*fy)}"
+        ixz="${-0.00000601-mf*fx*fz}" />
     </inertial>
   </link>
 
@@ -86,9 +108,17 @@
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <inertia ixx="${mt/2*rt*rt}" ixy="0"
+      <!-- Simple geometry -->
+      <!--inertia ixx="${mt/2*rt*rt}" ixy="0"
         iyy="${mt/3*lt*lt}" iyz="0"
-        izz="${mt/3*lt*lt}" ixz="0"/>
+        izz="${mt/3*lt*lt}" ixz="0"/ -->
+      <!-- From CAD file -->
+      <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
+        ixy="${-0.00000128-mt*tx*ty}"
+        iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
+        iyz="${-0.00005856-mt*ty*tz}"
+        izz="${ 0.00004159+mt*(tx*tx+ty*ty)}"
+        ixz="${ 0.00000606-mt*tx*tz}" />
     </inertial>
   </link>
 
@@ -110,9 +140,17 @@
     <inertial>
       <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
+      <!-- Simple geometry -->
+      <!--inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
         iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
-        izz="${mc/6*4*lc1*lc1}" ixz="0"/>
+        izz="${mc/6*4*lc1*lc1}" ixz="0"/-->
+      <!-- From CAD file -->
+      <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
+        ixy="${        0.0-mf*fx*fy}"
+        iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
+        iyz="${-0.00000002-mf*fy*fz}"
+        izz="${ 0.00013756+mf*(fx*fx+fy*fy)}"
+        ixz="${-0.00000601-mf*fx*fz}" />
     </inertial>
   </link>
 
@@ -134,9 +172,17 @@
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <inertia ixx="${mt/2*rt*rt}" ixy="0"
+      <!-- Simple geometry -->
+      <!--inertia ixx="${mt/2*rt*rt}" ixy="0"
         iyy="${mt/3*lt*lt}" iyz="0"
-        izz="${mt/3*lt*lt}" ixz="0"/>
+        izz="${mt/3*lt*lt}" ixz="0"/-->
+      <!-- From CAD file -->
+      <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
+        ixy="${-0.00000128-mt*tx*ty}"
+        iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
+        iyz="${-0.00005856-mt*ty*tz}"
+        izz="${ 0.00004159+mt*(tx*tx+ty*ty)}"
+        ixz="${ 0.00000606-mt*tx*tz}" />
     </inertial>
   </link>
 
@@ -158,9 +204,17 @@
     <inertial>
       <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
+      <!-- Simple geometry -->
+      <!--inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
         iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
-        izz="${mc/6*4*lc1*lc1}" ixz="0"/>
+        izz="${mc/6*4*lc1*lc1}" ixz="0"/-->
+      <!-- From CAD file -->
+      <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
+        ixy="${        0.0-mf*fx*fy}"
+        iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
+        iyz="${-0.00000002-mf*fy*fz}"
+        izz="${ 0.00013756+mf*(fx*fx+fy*fy)}"
+        ixz="${-0.00000601-mf*fx*fz}" />
     </inertial>
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
@@ -189,9 +243,17 @@
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <inertia ixx="${mt/2*rt*rt}" ixy="0"
+      <!-- Simple geometry -->
+      <!--inertia ixx="${mt/2*rt*rt}" ixy="0"
         iyy="${mt/3*lt*lt}" iyz="0"
-        izz="${mt/3*lt*lt}" ixz="0"/>
+        izz="${mt/3*lt*lt}" ixz="0"/-->
+      <!-- From CAD file -->
+      <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
+        ixy="${-0.00000128-mt*tx*ty}"
+        iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
+        iyz="${-0.00005856-mt*ty*tz}"
+        izz="${ 0.00004159+mt*(tx*tx+ty*ty)}"
+        ixz="${ 0.00000606-mt*tx*tz}" />
     </inertial>
   </link>
 
@@ -213,9 +275,17 @@
     <inertial>
       <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
+      <!-- Simple geometry -->
+      <!--inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
         iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
-        izz="${mc/6*4*lc1*lc1}" ixz="0"/>
+        izz="${mc/6*4*lc1*lc1}" ixz="0"/-->
+      <!-- From CAD file -->
+      <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
+        ixy="${        0.0-mf*fx*fy}"
+        iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
+        iyz="${-0.00000002-mf*fy*fz}"
+        izz="${ 0.00013756+mf*(fx*fx+fy*fy)}"
+        ixz="${-0.00000601-mf*fx*fz}" />
     </inertial>
   </link>
 
@@ -237,9 +307,17 @@
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <inertia ixx="${mt/2*rt*rt}" ixy="0"
+      <!-- Simple geometry -->
+      <!--inertia ixx="${mt/2*rt*rt}" ixy="0"
         iyy="${mt/3*lt*lt}" iyz="0"
-        izz="${mt/3*lt*lt}" ixz="0"/>
+        izz="${mt/3*lt*lt}" ixz="0"/-->
+      <!-- From CAD file -->
+      <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
+        ixy="${-0.00000128-mt*tx*ty}"
+        iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
+        iyz="${-0.00005856-mt*ty*tz}"
+        izz="${ 0.00004159+mt*(tx*tx+ty*ty)}"
+        ixz="${ 0.00000606-mt*tx*tz}" />
     </inertial>
   </link>
 
