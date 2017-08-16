@@ -198,6 +198,3 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-add_executable(harmonic_walk src/harmonic_walk.cpp)
-target_link_libraries(harmonic_walk ${catkin_LIBRARIES})

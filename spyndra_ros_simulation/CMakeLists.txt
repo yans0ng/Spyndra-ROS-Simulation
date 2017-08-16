@@ -11,6 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   rviz
+  std_msgs
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -199,5 +201,12 @@ include_directories(
 # catkin_add_nosetests(test)
 add_executable(basicmove src/basicmove.cpp)
 target_link_libraries(basicmove ${catkin_LIBRARIES})
+
 add_executable(readcsv src/readcsv.cpp)
 target_link_libraries(readcsv ${catkin_LIBRARIES})
+
+add_executable(writeimu src/writeimu.cpp)
+target_link_libraries(writeimu ${catkin_LIBRARIES})
+
+add_executable(sine_walk src/sine_walk.cpp)
+target_link_libraries(sine_walk ${catkin_LIBRARIES})
