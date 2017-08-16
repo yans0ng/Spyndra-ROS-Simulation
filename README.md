@@ -133,7 +133,7 @@ This project assumes using [ROS Indigo](http://wiki.ros.org/indigo/Installation)
 4. After confirming the rostopic, you can test the simple harmonic walk (sine wave with phase lag)
 
    ```
-   $ rosrun spyndra_control harmonic_walk
+   $ rosrun spyndra_ros_simulation sine_walk
    ```
 
 ## License
