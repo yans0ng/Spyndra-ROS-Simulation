@@ -1,15 +1,9 @@
-#include <ros/ros.h>
-#include <vector>
-#include <string>
-#include <list>
-#include <fstream>
-#include <iostream>
-#include "spyndra.h"
+#include "spyndra/spyndra.h"
 
 int main()
 {
-  ros::Spyndra s;
-  //ros::CsvGaitGenerator cg;
+  spyndra::CsvGaitGenerator cg;
+  //cg.foo();
   //cg.set_csv_file( "test.csv" );
   //cg.print_gait();
 
