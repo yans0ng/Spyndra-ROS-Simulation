@@ -118,8 +118,8 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
-# ${catkin_INCLUDE_DIRS}
+ include
+ ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -210,3 +210,6 @@ target_link_libraries(writeimu ${catkin_LIBRARIES})
 
 add_executable(sine_walk src/sine_walk.cpp)
 target_link_libraries(sine_walk ${catkin_LIBRARIES})
+
+add_executable(test_api src/test_api.cpp)
+target_link_libraries(test_api ${catkin_LIBRARIES})
