@@ -128,6 +128,7 @@ include_directories(
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
   include/spyndra/csv_gait_generator.cpp
+  include/test/derived.cpp
 )
 
 ## Add cmake target dependencies of the library

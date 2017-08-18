@@ -1,7 +1,9 @@
 #include "spyndra/spyndra.h"
+#include "test/derived.cpp"
 
 int main(int argc, char **argv)
 {
+  /*
   spyndra::Simulator s( argc, argv );
   //ros::spin();
   spyndra::CsvGaitGenerator cg = s.gait_generator();
@@ -15,5 +17,10 @@ int main(int argc, char **argv)
     ros::spinOnce();
     loop_rate.sleep();
   }
+  */
+  ros::Derived x;
+  ros::Derived y;
+  x == y;
+  
   return 0;
 }
