@@ -8,4 +8,5 @@
 namespace spyndra
 {
 void CsvGaitGenerator::foo(){}
+
 }

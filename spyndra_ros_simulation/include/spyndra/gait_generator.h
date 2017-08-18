@@ -10,6 +10,8 @@
  */
 
 #include <ros/ros.h>
+#include <vector>
+#include <list>
 
 namespace spyndra
 {
@@ -21,5 +23,11 @@ public:
   ~GaitGenerator(){}
     
   virtual void foo() = 0;
+  virtual void next_step() = 0;
+  virtual bool is_over() = 0;
+
+protected:
+  ros::V_Publisher controllers;
+  std::list<std::vector<double> > gait;
 };
 }

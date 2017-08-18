@@ -4,3 +4,4 @@
  */
 
 #include "csv_gait_generator.cpp"
+#include "simulator.h"
