@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <spyndra/util.h>
 
 namespace spyndra
 {
@@ -75,7 +76,9 @@ void CsvGaitGenerator::set_csv_file( std::string filename )
         token = line.substr(last, next-last);
 
         //step.push_back( atof(token.c_str()) / 180. - 1.5);
-        step.push_back( atof(token.c_str()) / 300. - 0.6);
+        step.push_back( cmd_to_rad(i, atof(token.c_str() ) ) );
+
+        last = next + 1;
       }
       gait.push_back(step);
     }
