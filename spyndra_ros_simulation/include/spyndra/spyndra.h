@@ -5,3 +5,4 @@
 
 #include "gait_generator.h"
 #include "simulator.h"
+#include "sensor.h"
