@@ -108,8 +108,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES spyndra
-#  LIBRARIES spyndra_ros_simulation
+  LIBRARIES spyndra_ros_simulation
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -126,10 +125,10 @@ include_directories(
 )
 
 ## Declare a C++ library
-add_library(${PROJECT_NAME}
-  include/spyndra/csv_gait_generator.cpp
-  include/test/derived.cpp
-)
+#add_library(${PROJECT_NAME}
+  #include/spyndra/csv_gait_generator.cpp
+  #include/test/derived.cpp
+#)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
