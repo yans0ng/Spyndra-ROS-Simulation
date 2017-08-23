@@ -2,13 +2,13 @@
 
 int main(int argc, char **argv)
 {
+  spyndra::Simulator sim( argc, argv );
+  spyndra::GaitGenerator gait = sim.gait_generator("csv", "walk.csv");
+  gait.print_gait();
+  gait.next_step();
   spyndra::Imu i(argc, argv);
-  spyndra::Simulator s( argc, argv );
-  //spyndra::GaitGenerator<spyndra::CsvGaitGenerator> cg("csv", "walk.csv");
-  spyndra::GaitGenerator<spyndra::CsvGaitGenerator> cg = s.gait_generator("walk.csv");
-  //cg.print_gait();
   ros::Rate loop_rate(5);
-  while (ros::ok() and !cg.is_over() )
+  while (ros::ok() and !gait.is_over() )
   {
     std::vector<double> measure = i.measure_impl();
     //std::stringstream ss;
@@ -18,10 +18,15 @@ int main(int argc, char **argv)
     std::cout << '\n';
     //ROS_INFO_STREAM(ss.str());
     //s.move(1, -0.5 );
-    cg.next_step();
+    gait.next_step();
     ros::spinOnce();
     loop_rate.sleep();
   }
+  /*
+  //spyndra::GaitGenerator<spyndra::CsvGaitGenerator> cg("csv", "walk.csv");
+  spyndra::GaitGenerator<spyndra::CsvGaitGenerator> cg = s.gait_generator("walk.csv");
+  //cg.print_gait();
   
+  */
   return 0;
 }
