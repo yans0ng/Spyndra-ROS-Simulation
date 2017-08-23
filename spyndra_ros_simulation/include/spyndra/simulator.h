@@ -1,25 +1,27 @@
 /* simulator.h */
 #include <ros/ros.h>
+#include "spyndra/robot.h"
 #include <std_msgs/Float64.h>
 #include <string>
+#include "spyndra/sensor.h"
 
+#ifndef SPYNDRA_ROBOT_SIMULATOR_H
+#define SPYNDRA_ROBOT_SIMULATOR_H
 namespace spyndra
 {
-class Simulator
+class Simulator : Robot
 {
 public:
   Simulator(int argc, char **argv, int freq );
   Simulator( const Simulator& rhs ){}
   ~Simulator(){}
 
-  //template <class T>
-  //spyndra::GaitGenerator<T> gait_generator(std::string filename);
-  GaitGenerator gait_generator(const std::string& method, std::string filename);
-  void move( int jt, float angle );
-private:
-  ros::V_Publisher controllers;
+  GaitGenerator gait_generator(const std::string& method, const std::string& filename);
+  Sensor sensor(int argc, char**argv, const std::string& sensor_type);
 };
 
+
+/* simulator.cpp */
 Simulator::Simulator(int argc, char **argv, int freq = 10 )
 {
   ros::init(argc, argv, "simulator");
@@ -35,29 +37,19 @@ Simulator::Simulator(int argc, char **argv, int freq = 10 )
   controllers = ros::V_Publisher({j1, j2, j3, j4, j5, j6, j7, j8});
 }
 
-GaitGenerator Simulator::gait_generator(const std::string& method, std::string filename)
+GaitGenerator Simulator::gait_generator(const std::string& method, const std::string& filename)
 {
   spyndra::GaitGenerator g(method, filename);
   g.set_controllers( controllers );
   return g;
 }
 
-void Simulator::move( int jt, float angle )
+Sensor Simulator::sensor(int argc, char** argv, const std::string& sensor_type )
 {
-  //ros::Rate loop_rate(1);
-  //while (ros::ok() )
-  //{
-  //for ( int i = 0; i < 5; ++i)
-  //{
-  //  ROS_INFO_STREAM(" move ");
-
-    std_msgs::Float64 cmd;
-    cmd.data = angle;
-    controllers[jt-1].publish( cmd );
-
-    ros::spinOnce();
-    //loop_rate.sleep();
-  //}
+  Sensor s(argc, argv, sensor_type);
+  return s;
 }
 
-}
+} // namespace spyndra
+
+#endif

@@ -6,11 +6,12 @@ int main(int argc, char **argv)
   spyndra::GaitGenerator gait = sim.gait_generator("csv", "walk.csv");
   gait.print_gait();
   gait.next_step();
-  spyndra::Imu i(argc, argv);
+  //spyndra::Imu i(argc, argv);
+  spyndra::Sensor i = sim.sensor(argc, argv, "imu" );
   ros::Rate loop_rate(5);
   while (ros::ok() and !gait.is_over() )
   {
-    std::vector<double> measure = i.measure_impl();
+    std::vector<double> measure = i.measure<std::vector<double> >();
     //std::stringstream ss;
     std::cout << "Measure: ";
     for (int i = 0; i < 6; ++i)

@@ -3,6 +3,8 @@
  * Utility functions for Spyndra hardware.
  */
 
+#ifndef SPYNDRA_UTIL_H
+#define SPYNDRA_UTIL_H
 namespace spyndra
 {
 /* cmd_to_rad
@@ -16,3 +18,5 @@ double cmd_to_rad( int leg, double cmd )
     return (350.0 - cmd ) / 150.0 * M_PI /4.0 + 0.2;
 }
 }
+
+#endif

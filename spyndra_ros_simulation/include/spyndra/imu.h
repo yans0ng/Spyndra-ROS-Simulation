@@ -1,9 +1,4 @@
-/* sensor.h
- *
- * Interface of sensor.
- *
- */
-
+/* imu.h */
 #include <ros/ros.h>
 #include <sensor_msgs/Imu.h>
 #include <geometry_msgs/Vector3.h>
@@ -11,6 +6,8 @@
 #include <tf/transform_datatypes.h>
 #include <vector> // TODO: replace with customized msg
 
+#ifndef SPYNDRA_IMU_H
+#define SPYNDRA_IMU_H
 namespace spyndra
 {
 class Imu
@@ -37,6 +34,7 @@ std::vector<double> Imu::measure_impl()
   return measure;
 }
 
+/* imu.cpp */
 Imu::Imu(int argc, char **argv)
 {
   ros::init(argc, argv, "imu_listener");
@@ -58,4 +56,7 @@ void Imu::imu_callback(const sensor_msgs::ImuConstPtr& msg)
   y = a.y;
   z = a.z;
 }
-}
+} // namespace spyndra
+
+#endif
+
