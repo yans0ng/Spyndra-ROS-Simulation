@@ -17,7 +17,7 @@ public:
   ~Simulator(){}
 
   GaitGenerator gait_generator(const std::string& method, const std::string& filename);
-  Sensor sensor(int argc, char**argv, const std::string& sensor_type);
+  //Sensor sensor(int argc, char**argv, const std::string& sensor_type);
 };
 
 
@@ -44,12 +44,13 @@ GaitGenerator Simulator::gait_generator(const std::string& method, const std::st
   return g;
 }
 
+/*
 Sensor Simulator::sensor(int argc, char** argv, const std::string& sensor_type )
 {
   Sensor s(argc, argv, sensor_type);
   return s;
 }
-
+*/
 } // namespace spyndra
 
 #endif
