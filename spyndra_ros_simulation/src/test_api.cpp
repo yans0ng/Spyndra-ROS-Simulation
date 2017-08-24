@@ -21,5 +21,7 @@ int main(int argc, char **argv)
     ros::spinOnce();
     loop_rate.sleep();
   }
+
+  i->save_csv("output.csv");
   return 0;
 }
