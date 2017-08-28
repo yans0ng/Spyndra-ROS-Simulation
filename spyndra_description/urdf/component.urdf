@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<robot name="component" xmlns:xacro="http://www.ros.rog/wiki/xacro">
+  <material name="white">
+    <color rgba="1 1 1 0.8"/>
+  </material>
+  <!--link name="base_link">
+    <collision>
+      <geometry>
+        <mesh filename="package://learning_urdf/meshes/chassis.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="-0.11 -0.068 0" rpy="0 0 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <mesh filename="package://learning_urdf/meshes/chassis.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="-0.11 -0.068 0" rpy="0 0 0"/>
+    </visual>
+  </link-->
+  <!--link name="base_link">
+    <collision>
+      <geometry>
+        <mesh filename="package://learning_urdf/meshes/femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="-0.00825 0.0455 -0.022" rpy="3.1415926 -1.57075 0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <mesh filename="package://learning_urdf/meshes/femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="-0.00825 0.0455 -0.022" rpy="3.1415926 -1.57075 0"/>
+      <material name="white"/>
+    </visual>
+  </link-->
+  <link name="base_link">
+    <collision>
+      <geometry>
+        <mesh filename="package://learning_urdf/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="0.1735 0.0215 -0.02" rpy="1.57075 0 -1.57075"/>
+    </collision>
+    <visual>
+      <geometry>
+        <mesh filename="package://learning_urdf/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="0.1735 0.0215 -0.02" rpy="1.57075 0 -1.57075"/>
+      <material name="white"/>
+    </visual>
+  </link>
+</robot>

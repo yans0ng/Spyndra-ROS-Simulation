@@ -2,6 +2,7 @@
 <robot name="spyndra" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- constants -->
   <xacro:property name="pi" value="3.1415926535897931"/>
+  <!-- stl offset -->
   <!-- component length -->
   <xacro:property name="lc1" value="0.068"/>
   <xacro:property name="lc2" value="0.0508"/>
@@ -33,25 +34,20 @@
   <link name="base_link">
     <collision>
       <geometry>
-        <box size="${2*lc1} ${2*lc1} ${hc1}" />
+        <mesh filename="package://spyndra_description/meshes/chassis.stl"     scale="0.001 0.001 0.001"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 ${hc1/2}"/>
+      <origin xyz="-0.11 -0.068 0" rpy="0 0 0"/>
     </collision>
     <visual>
       <geometry>
-        <box size="${2*lc1} ${2*lc1} ${hc1}" />
+        <mesh filename="package://spyndra_description/meshes/chassis.stl"     scale="0.001 0.001 0.001"/>
       </geometry>
+      <origin xyz="-0.11 -0.068 0" rpy="0 0 0"/>
       <material name="black"/>
-      <origin rpy="0 0 0" xyz="0 0 ${hc1/2}"/>
     </visual>
     <inertial>
       <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <!-- Simple geometry -->
-      <!--inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
-        iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
-        izz="${mc/6*4*lc1*lc1}" ixz="0"/-->
-      <!-- From CAD file -->
       <inertia ixx="0.00029636" ixy="0.00000019"
         iyy="0.00028197" iyz = "-0.00000269"
         izz="0.00044786" ixz="-0.00000106" />
@@ -61,26 +57,21 @@
   <link name="femur_1">
     <collision>
       <geometry>
-        <box size="${lf} ${wf} ${hf}"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl"     scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.00825 0.0455 -0.022" rpy="3.1415926 -1.57075 0    "/>
     </collision>
     <visual>
       <geometry>
-        <box size="${lf} ${wf} ${hf}"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl"     scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.00825 0.0455 -0.022" rpy="3.1415926 -1.57075 0    "/>
     </visual>
     <inertial>
       <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
       <mass value="${mf}"/>
-      <!-- Simple geometry -->
-      <!--inertia ixx="${mf/12*(wf*wf+hf*hf)}" ixy="0"
-        iyy="${mf/3*lf*lf+mf/12*wf*wf}" iyz="0"
-        izz="${mf/3*lf*lf+mf/12*hf*hf}" ixz="0"/-->
-      <!-- From CAD file -->
       <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
         ixy="${        0.0-mf*fx*fy}"
         iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
@@ -93,26 +84,21 @@
   <link name="tibia_1">
     <collision>
       <geometry>
-        <cylinder length="${lt}" radius="${rt}"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl"     scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+      <origin xyz="0.1735 0.0215 -0.02" rpy="1.57075 0 -1.57075"/>
     </collision>
     <visual>
       <geometry>
-        <cylinder length="${lt}" radius="${rt}"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl"     scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+      <origin xyz="0.1735 0.0215 -0.02" rpy="1.57075 0 -1.57075"/>
     </visual>
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <!-- Simple geometry -->
-      <!--inertia ixx="${mt/2*rt*rt}" ixy="0"
-        iyy="${mt/3*lt*lt}" iyz="0"
-        izz="${mt/3*lt*lt}" ixz="0"/ -->
-      <!-- From CAD file -->
       <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
         ixy="${-0.00000128-mt*tx*ty}"
         iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
