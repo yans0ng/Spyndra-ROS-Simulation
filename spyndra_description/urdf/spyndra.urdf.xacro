@@ -4,16 +4,35 @@
   <xacro:property name="pi" value="3.1415926535897931"/>
   <!-- stl offset -->
   <!-- component length -->
-  <xacro:property name="lc1" value="0.068"/>
-  <xacro:property name="lc2" value="0.0508"/>
+  <xacro:property name="lc1" value="0.061"/>
+  <xacro:property name="lc2" value="0.058"/>
   <xacro:property name="hc1" value="0.09441"/>
   <xacro:property name="hc2" value="0.01"/>
   <xacro:property name="lf" value="0.127"/>
   <xacro:property name="wf" value="0.0848"/>
-  <xacro:property name="hf" value="0.04"/>
+  <xacro:property name="hf" value="0.06"/>
   <xacro:property name="lt" value="0.18858"/>
   <xacro:property name="rt" value="0.017"/>
   <xacro:property name="dt" value="0.21227"/>
+  <!-- link offset -->
+  <xacro:property name="off_cx" value="-0.11" />
+  <xacro:property name="off_cy" value="-0.068" />
+  <xacro:property name="off_cz" value="0" />
+  <xacro:property name="off_fx" value="-0.00825" />
+  <xacro:property name="off_fy" value="0.0455" />
+  <xacro:property name="off_fz" value="-0.022" />
+  <xacro:property name="off_tx" value="0.1735" />
+  <xacro:property name="off_ty" value="0.0215" />
+  <xacro:property name="off_tz" value="-0.02" />
+
+  <!-- joint offset -->
+  <xacro:property name="jt_cx" value="0.0585" />
+  <xacro:property name="jt_cy" value="-0.003" />
+  <xacro:property name="jt_cz" value="0.047" />
+  <xacro:property name="jt_fx" value="0.111" />
+  <xacro:property name="jt_fy" value="0.003" />
+  <xacro:property name="jt_fz" value="0" />
+
   <!-- component mass -->
   <xacro:property name="mc" value="0.23069271"/>
   <xacro:property name="mf" value="0.20096365"/>
@@ -36,13 +55,13 @@
       <geometry>
         <mesh filename="package://spyndra_description/meshes/chassis.stl"     scale="0.001 0.001 0.001"/>
       </geometry>
-      <origin xyz="-0.11 -0.068 0" rpy="0 0 0"/>
+      <origin xyz="${off_cx} ${off_cy} ${off_cz}" rpy="0 0 0"/>
     </collision>
     <visual>
       <geometry>
         <mesh filename="package://spyndra_description/meshes/chassis.stl"     scale="0.001 0.001 0.001"/>
       </geometry>
-      <origin xyz="-0.11 -0.068 0" rpy="0 0 0"/>
+      <origin xyz="${off_cx} ${off_cy} ${off_cz}" rpy="0 0 0"/>
       <material name="black"/>
     </visual>
     <inertial>
@@ -57,17 +76,17 @@
   <link name="femur_1">
     <collision>
       <geometry>
-        <mesh filename="package://spyndra_description/meshes/femur.stl"     scale="0.001 0.001 0.001"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="-0.00825 0.0455 -0.022" rpy="3.1415926 -1.57075 0    "/>
+      <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </collision>
     <visual>
       <geometry>
-        <mesh filename="package://spyndra_description/meshes/femur.stl"     scale="0.001 0.001 0.001"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="-0.00825 0.0455 -0.022" rpy="3.1415926 -1.57075 0    "/>
+      <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </visual>
     <inertial>
       <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
@@ -84,17 +103,17 @@
   <link name="tibia_1">
     <collision>
       <geometry>
-        <mesh filename="package://spyndra_description/meshes/tibia.stl"     scale="0.001 0.001 0.001"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin xyz="0.1735 0.0215 -0.02" rpy="1.57075 0 -1.57075"/>
+      <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </collision>
     <visual>
       <geometry>
-        <mesh filename="package://spyndra_description/meshes/tibia.stl"     scale="0.001 0.001 0.001"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin xyz="0.1735 0.0215 -0.02" rpy="1.57075 0 -1.57075"/>
+      <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </visual>
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
@@ -111,26 +130,21 @@
   <link name="femur_2">
     <collision>
       <geometry>
-        <box size="${lf} ${wf} ${hf}"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </collision>
     <visual>
       <geometry>
-        <box size="${lf} ${wf} ${hf}"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </visual>
     <inertial>
       <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <!-- Simple geometry -->
-      <!--inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
-        iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
-        izz="${mc/6*4*lc1*lc1}" ixz="0"/-->
-      <!-- From CAD file -->
       <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
         ixy="${        0.0-mf*fx*fy}"
         iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
@@ -143,26 +157,21 @@
   <link name="tibia_2">
     <collision>
       <geometry>
-        <cylinder length="${lt}" radius="${rt}"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+      <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </collision>
     <visual>
       <geometry>
-        <cylinder length="${lt}" radius="${rt}"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+      <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </visual>
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <!-- Simple geometry -->
-      <!--inertia ixx="${mt/2*rt*rt}" ixy="0"
-        iyy="${mt/3*lt*lt}" iyz="0"
-        izz="${mt/3*lt*lt}" ixz="0"/-->
-      <!-- From CAD file -->
       <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
         ixy="${-0.00000128-mt*tx*ty}"
         iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
@@ -175,26 +184,21 @@
   <link name="femur_3">
     <collision>
       <geometry>
-        <box size="${lf} ${wf} ${hf}"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </collision>
     <visual>
       <geometry>
-        <box size="${lf} ${wf} ${hf}"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </visual>
     <inertial>
       <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <!-- Simple geometry -->
-      <!--inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
-        iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
-        izz="${mc/6*4*lc1*lc1}" ixz="0"/-->
-      <!-- From CAD file -->
       <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
         ixy="${        0.0-mf*fx*fy}"
         iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
@@ -214,26 +218,21 @@
   <link name="tibia_3">
     <collision>
       <geometry>
-        <cylinder length="${lt}" radius="${rt}"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+      <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </collision>
     <visual>
       <geometry>
-        <cylinder length="${lt}" radius="${rt}"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+      <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </visual>
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <!-- Simple geometry -->
-      <!--inertia ixx="${mt/2*rt*rt}" ixy="0"
-        iyy="${mt/3*lt*lt}" iyz="0"
-        izz="${mt/3*lt*lt}" ixz="0"/-->
-      <!-- From CAD file -->
       <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
         ixy="${-0.00000128-mt*tx*ty}"
         iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
@@ -246,26 +245,21 @@
   <link name="femur_4">
     <collision>
       <geometry>
-        <box size="${lf} ${wf} ${hf}"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </collision>
     <visual>
       <geometry>
-        <box size="${lf} ${wf} ${hf}"/>
+        <mesh filename="package://spyndra_description/meshes/femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
-      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </visual>
     <inertial>
       <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <!-- Simple geometry -->
-      <!--inertia ixx="${mc/12*(4*lc1*lc1+hc1*hc1)}" ixy="0"
-        iyy="${mc/12*(4*lc1*lc1+hc1*hc1)}" iyz="0"
-        izz="${mc/6*4*lc1*lc1}" ixz="0"/-->
-      <!-- From CAD file -->
       <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
         ixy="${        0.0-mf*fx*fy}"
         iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
@@ -278,26 +272,21 @@
   <link name="tibia_4">
     <collision>
       <geometry>
-        <cylinder length="${lt}" radius="${rt}"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+      <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </collision>
     <visual>
       <geometry>
-        <cylinder length="${lt}" radius="${rt}"/>
+        <mesh filename="package://spyndra_description/meshes/tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="white"/>
-      <origin rpy="0 ${pi/2} 0" xyz="${lt/2} 0 0"/>
+      <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </visual>
     <inertial>
       <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <!-- Simple geometry -->
-      <!--inertia ixx="${mt/2*rt*rt}" ixy="0"
-        iyy="${mt/3*lt*lt}" iyz="0"
-        izz="${mt/3*lt*lt}" ixz="0"/-->
-      <!-- From CAD file -->
       <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
         ixy="${-0.00000128-mt*tx*ty}"
         iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
@@ -311,7 +300,7 @@
     <parent link="base_link"/>
     <child link="femur_1"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="${lc2} 0 ${hc2+hc1/2}"/>
+    <origin rpy="0 0 0" xyz="${jt_cx} ${jt_cy} ${jt_cz}"/>
     <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
   </joint>
 
@@ -319,7 +308,7 @@
     <parent link="femur_1"/>
     <child link="tibia_1"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 ${dt} 0" xyz="${lf} 0 0"/>
+    <origin rpy="0 0 0" xyz="${jt_fx} ${jt_fy} ${jt_fz}"/>
     <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
   </joint>
 
@@ -327,7 +316,7 @@
     <parent link="base_link"/>
     <child link="femur_2"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 ${-pi/2}" xyz="0 ${-lc2} ${hc2+hc1/2}"/>
+    <origin rpy="0 0 ${-pi/2}" xyz="${jt_cy} ${-jt_cx} ${jt_cz}"/>
     <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
   </joint>
 
@@ -335,7 +324,7 @@
     <parent link="femur_2"/>
     <child link="tibia_2"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 ${dt} 0" xyz="${lf} 0 0"/>
+    <origin rpy="0 0 0" xyz="${jt_fx} ${jt_fy} ${jt_fz}"/>
     <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
   </joint>
 
@@ -343,7 +332,7 @@
     <parent link="base_link"/>
     <child link="femur_3"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 ${-pi}" xyz="${-lc2} 0 ${hc2+hc1/2}"/>
+    <origin rpy="0 0 ${-pi}" xyz="${-jt_cx} ${-jt_cy} ${jt_cz}"/>
     <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
   </joint>
 
@@ -351,7 +340,7 @@
     <parent link="femur_3"/>
     <child link="tibia_3"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 ${dt} 0" xyz="${lf} 0 0"/>
+    <origin rpy="0 0 0" xyz="${jt_fx} ${jt_fy} ${jt_fz}"/>
     <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
   </joint>
 
@@ -359,7 +348,7 @@
     <parent link="base_link"/>
     <child link="femur_4"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 ${pi/2}" xyz="0 ${lc2} ${hc2+hc1/2}"/>
+    <origin rpy="0 0 ${pi/2}" xyz="${-jt_cy} ${jt_cx} ${jt_cz}"/>
     <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
   </joint>
 
@@ -367,7 +356,7 @@
     <parent link="femur_4"/>
     <child link="tibia_4"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 ${dt} 0" xyz="${lf} 0 0"/>
+    <origin rpy="0 0 0" xyz="${jt_fx} ${jt_fy} ${jt_fz}"/>
     <limit effort="1000.0" lower="-0.5" upper="0.8" velocity="0.5"/>
   </joint>
 
