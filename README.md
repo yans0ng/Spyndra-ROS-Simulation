@@ -50,12 +50,12 @@ This project assumes using [ROS Indigo](http://wiki.ros.org/indigo/Installation)
 
    ```
    $ source ~/catkin_ws/devel/setup.bash
-   $ roslaunch spyndra_ros_simulator 01-basicmove.launch
+   $ roslaunch spyndra_description display.launch
    ```
 
    If you see things similar to the screenshot below, you are all set for this project.
    
-   ![01_basicmove](misc_images/01_basicmove.png)
+   ![01_display](misc_images/01_display.png)
    
 ## Running Simulation
 
