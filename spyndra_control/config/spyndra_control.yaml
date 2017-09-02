@@ -8,32 +8,32 @@ spyndra:
   joint1_position_controller:
     type: effort_controllers/JointPositionController
     joint: motor_f1
-    pid: {p: 10.0, i: 0.01, d: 0.01}
+    pid: {p: 5.0, i: 0.01, d: 0.2}
   joint2_position_controller:
     type: effort_controllers/JointPositionController
     joint: motor_t1
-    pid: {p: 10.0, i: 0.01, d: 0.01}
+    pid: {p: 5.0, i: 0.01, d: 0.2}
   joint3_position_controller:
     type: effort_controllers/JointPositionController
     joint: motor_f2
-    pid: {p: 10.0, i: 0.01, d: 0.01}
+    pid: {p: 5.0, i: 0.01, d: 0.2}
   joint4_position_controller:
     type: effort_controllers/JointPositionController
     joint: motor_t2
-    pid: {p: 10.0, i: 0.01, d: 0.01}
+    pid: {p: 5.0, i: 0.01, d: 0.2}
   joint5_position_controller:
     type: effort_controllers/JointPositionController
     joint: motor_f3
-    pid: {p: 10.0, i: 0.01, d: 0.01}
+    pid: {p: 5.0, i: 0.01, d: 0.2}
   joint6_position_controller:
     type: effort_controllers/JointPositionController
     joint: motor_t3
-    pid: {p: 10.0, i: 0.01, d: 0.01}
+    pid: {p: 5.0, i: 0.01, d: 0.2}
   joint7_position_controller:
     type: effort_controllers/JointPositionController
     joint: motor_f4
-    pid: {p: 10.0, i: 0.01, d: 0.01}
+    pid: {p: 5.0, i: 0.01, d: 0.2}
   joint8_position_controller:
     type: effort_controllers/JointPositionController
     joint: motor_t4
-    pid: {p: 10.0, i: 0.01, d: 0.01}
+    pid: {p: 5.0, i: 0.01, d: 0.2}
