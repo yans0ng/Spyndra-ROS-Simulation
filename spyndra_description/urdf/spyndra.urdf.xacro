@@ -2,19 +2,8 @@
 <robot name="spyndra" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- constants -->
   <xacro:property name="pi" value="3.1415926535897931"/>
-  <!-- stl offset -->
-  <!-- component length -->
-  <xacro:property name="lc1" value="0.061"/>
-  <xacro:property name="lc2" value="0.058"/>
-  <xacro:property name="hc1" value="0.09441"/>
-  <xacro:property name="hc2" value="0.01"/>
-  <xacro:property name="lf" value="0.127"/>
-  <xacro:property name="wf" value="0.0848"/>
-  <xacro:property name="hf" value="0.06"/>
-  <xacro:property name="lt" value="0.18858"/>
-  <xacro:property name="rt" value="0.017"/>
-  <xacro:property name="dt" value="0.21227"/>
-  <!-- link offset -->
+
+  <!-- link offset for each STL file -->
   <xacro:property name="off_cx" value="-0.11" />
   <xacro:property name="off_cy" value="-0.068" />
   <xacro:property name="off_cz" value="0" />
@@ -25,7 +14,7 @@
   <xacro:property name="off_ty" value="0.0215" />
   <xacro:property name="off_tz" value="-0.02" />
 
-  <!-- joint offset -->
+  <!-- joint position -->
   <xacro:property name="jt_cx" value="0.0585" />
   <xacro:property name="jt_cy" value="-0.003" />
   <xacro:property name="jt_cz" value="0.047" />
@@ -37,13 +26,34 @@
   <xacro:property name="mc" value="0.23069271"/>
   <xacro:property name="mf" value="0.20096365"/>
   <xacro:property name="mt" value="0.10764861"/>
-  <!-- inertia offsets -->
-  <xacro:property name="fx" value="-0.0006" />
-  <xacro:property name="fy" value="0.0" />
-  <xacro:property name="fz" value="-0.05762" />
-  <xacro:property name="tx" value="-0.06001" />
-  <xacro:property name="ty" value="0.0" />
-  <xacro:property name="tz" value="0.0102" />
+
+  <!-- TODO: center of mass -->
+  <xacro:property name="chassis_origin_z" value="0.09441"/>
+  <xacro:property name="femur_origin_x" value="0.0635"/>
+  <xacro:property name="tibia_origin_x" value="0.09429"/>
+  <xacro:property name="femur_origin_z" value="0.09441"/>
+
+  <!-- moment of inertia -->
+  <xacro:property name="chassis_ixx" value="0.0029636" />
+  <xacro:property name="chassis_ixy" value="0.00000019" />
+  <xacro:property name="chassis_iyy" value="0.00028197" />
+  <xacro:property name="chassis_iyz" value="-0.00000269" />
+  <xacro:property name="chassis_izz" value="0.00044786" />
+  <xacro:property name="chassis_ixz" value="-0.00000106" />
+
+  <xacro:property name="femur_ixx" value="0.00025261" />
+  <xacro:property name="femur_ixy" value="0.0" />
+  <xacro:property name="femur_iyy" value="0.00014944" />
+  <xacro:property name="femur_iyz" value="-0.00000002" />
+  <xacro:property name="femur_izz" value="0.00013756" />
+  <xacro:property name="femur_ixz" value="-0.00000601" />
+
+  <xacro:property name="tibia_ixx" value="0.00021435" />
+  <xacro:property name="tibia_ixy" value="-0.00000128" />
+  <xacro:property name="tibia_iyy" value="0.00019560" />
+  <xacro:property name="tibia_iyz" value="-0.00005856" />
+  <xacro:property name="tibia_izz" value="0.00004159" />
+  <xacro:property name="tibia_ixz" value="0.00000606" />
 
   <!-- Import all Gazebo-customization elements -->
   <xacro:include filename="$(find spyndra_description)/urdf/spyndra.gazebo" />
@@ -65,11 +75,11 @@
       <material name="black"/>
     </visual>
     <inertial>
-      <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
+      <origin xyz="0 0 ${chassis_origin_z}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <inertia ixx="0.00029636" ixy="0.00000019"
-        iyy="0.00028197" iyz = "-0.00000269"
-        izz="0.00044786" ixz="-0.00000106" />
+      <inertia ixx="${chassis_ixx}" ixy="${chassis_ixy}"
+        iyy="${chassis_iyy}" iyz = "${chassis_iyz}"
+        izz="${chassis_izz}" ixz="${chassis_ixz}" />
     </inertial>
   </link>
 
@@ -89,14 +99,11 @@
       <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </visual>
     <inertial>
-      <origin xyz="${lf/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${femur_origin_x} 0 ${femur_origin_z}" rpy="0 0 0"/>
       <mass value="${mf}"/>
-      <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
-        ixy="${        0.0-mf*fx*fy}"
-        iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
-        iyz="${-0.00000002-mf*fy*fz}"
-        izz="${ 0.00013756+mf*(fx*fx+fy*fy)}"
-        ixz="${-0.00000601-mf*fx*fz}" />
+      <inertia ixx="${femur_ixx}" ixy="${femur_ixy}"
+        iyy="${femur_iyy}" iyz = "${femur_iyz}"
+        izz="${femur_izz}" ixz="${femur_ixz}" />
     </inertial>
   </link>
 
@@ -116,14 +123,11 @@
       <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </visual>
     <inertial>
-      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${tibia_origin_x} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
-        ixy="${-0.00000128-mt*tx*ty}"
-        iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
-        iyz="${-0.00005856-mt*ty*tz}"
-        izz="${ 0.00004159+mt*(tx*tx+ty*ty)}"
-        ixz="${ 0.00000606-mt*tx*tz}" />
+      <inertia ixx="${tibia_ixx}" ixy="${tibia_ixy}"
+        iyy="${tibia_iyy}" iyz = "${tibia_iyz}"
+        izz="${tibia_izz}" ixz="${tibia_ixz}" />
     </inertial>
   </link>
 
@@ -143,14 +147,11 @@
       <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </visual>
     <inertial>
-      <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
+      <origin xyz="${femur_origin_x} 0 ${femur_origin_z}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
-        ixy="${        0.0-mf*fx*fy}"
-        iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
-        iyz="${-0.00000002-mf*fy*fz}"
-        izz="${ 0.00013756+mf*(fx*fx+fy*fy)}"
-        ixz="${-0.00000601-mf*fx*fz}" />
+      <inertia ixx="${femur_ixx}" ixy="${femur_ixy}"
+        iyy="${femur_iyy}" iyz = "${femur_iyz}"
+        izz="${femur_izz}" ixz="${femur_ixz}" />
     </inertial>
   </link>
 
@@ -170,14 +171,11 @@
       <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </visual>
     <inertial>
-      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${tibia_origin_x} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
-        ixy="${-0.00000128-mt*tx*ty}"
-        iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
-        iyz="${-0.00005856-mt*ty*tz}"
-        izz="${ 0.00004159+mt*(tx*tx+ty*ty)}"
-        ixz="${ 0.00000606-mt*tx*tz}" />
+      <inertia ixx="${tibia_ixx}" ixy="${tibia_ixy}"
+        iyy="${tibia_iyy}" iyz = "${tibia_iyz}"
+        izz="${tibia_izz}" ixz="${tibia_ixz}" />
     </inertial>
   </link>
 
@@ -197,21 +195,11 @@
       <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </visual>
     <inertial>
-      <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
+      <origin xyz="${femur_origin_x} 0 ${femur_origin_z}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
-        ixy="${        0.0-mf*fx*fy}"
-        iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
-        iyz="${-0.00000002-mf*fy*fz}"
-        izz="${ 0.00013756+mf*(fx*fx+fy*fy)}"
-        ixz="${-0.00000601-mf*fx*fz}" />
-    </inertial>
-    <inertial>
-      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
-      <mass value="${mt}"/>
-      <inertia ixx="${mt/2*rt*rt}" ixy="0"
-        iyy="${mt/3*lt*lt}" iyz="0"
-        izz="${mt/3*lt*lt}" ixz="0"/>
+      <inertia ixx="${femur_ixx}" ixy="${femur_ixy}"
+        iyy="${femur_iyy}" iyz = "${femur_iyz}"
+        izz="${femur_izz}" ixz="${femur_ixz}" />
     </inertial>
   </link>
 
@@ -231,14 +219,11 @@
       <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </visual>
     <inertial>
-      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${tibia_origin_x} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
-        ixy="${-0.00000128-mt*tx*ty}"
-        iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
-        iyz="${-0.00005856-mt*ty*tz}"
-        izz="${ 0.00004159+mt*(tx*tx+ty*ty)}"
-        ixz="${ 0.00000606-mt*tx*tz}" />
+      <inertia ixx="${tibia_ixx}" ixy="${tibia_ixy}"
+        iyy="${tibia_iyy}" iyz = "${tibia_iyz}"
+        izz="${tibia_izz}" ixz="${tibia_ixz}" />
     </inertial>
   </link>
 
@@ -258,14 +243,11 @@
       <origin xyz="${off_fx} ${off_fy} ${off_fz}" rpy="${pi} ${-pi/2} 0"/>
     </visual>
     <inertial>
-      <origin xyz="0 0 ${hc1}"  rpy="0 0 0"/>
+      <origin xyz="${femur_origin_x} 0 ${femur_origin_z}"  rpy="0 0 0"/>
       <mass value="${mc}"/>
-      <inertia ixx="${0.00025261+mf*(fy*fy+fz*fz)}"
-        ixy="${        0.0-mf*fx*fy}"
-        iyy="${ 0.00014944+mf*(fx*fx+fz*fz)}"
-        iyz="${-0.00000002-mf*fy*fz}"
-        izz="${ 0.00013756+mf*(fx*fx+fy*fy)}"
-        ixz="${-0.00000601-mf*fx*fz}" />
+      <inertia ixx="${femur_ixx}" ixy="${femur_ixy}"
+        iyy="${femur_iyy}" iyz = "${femur_iyz}"
+        izz="${femur_izz}" ixz="${femur_ixz}" />
     </inertial>
   </link>
 
@@ -285,14 +267,11 @@
       <origin xyz="${off_tx} ${off_ty} ${off_tz}" rpy="${pi/2} 0 ${-pi/2}"/>
     </visual>
     <inertial>
-      <origin xyz="${lt/2} 0 0" rpy="0 0 0"/>
+      <origin xyz="${tibia_origin_x} 0 0" rpy="0 0 0"/>
       <mass value="${mt}"/>
-      <inertia ixx="${0.00021435+mt*(ty*ty+tz*tz)}"
-        ixy="${-0.00000128-mt*tx*ty}"
-        iyy="${ 0.00019560+mt*(tx*tx+tz*tz)}"
-        iyz="${-0.00005856-mt*ty*tz}"
-        izz="${ 0.00004159+mt*(tx*tx+ty*ty)}"
-        ixz="${ 0.00000606-mt*tx*tz}" />
+      <inertia ixx="${tibia_ixx}" ixy="${tibia_ixy}"
+        iyy="${tibia_iyy}" iyz = "${tibia_iyz}"
+        izz="${tibia_izz}" ixz="${tibia_ixz}" />
     </inertial>
   </link>
 

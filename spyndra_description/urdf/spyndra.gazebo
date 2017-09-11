@@ -14,8 +14,12 @@
       <bodyName>base_link</bodyName>
       <topicName>imu</topicName>
       <serviceName>imu_service</serviceName>
+      <updateRateHZ>50.0</updateRateHZ>
       <gaussianNoise>0.0</gaussianNoise>
       <updateRate>20.0</updateRate>
+      <xyzOffset>0 0 0</xyzOffset>
+      <rpyOffset>0 0 0</rpyOffset>
+      <frameName>imu_link</frameName>
     </plugin>
   </gazebo>
 
