@@ -67,7 +67,7 @@ This project assumes using [ROS Indigo](http://wiki.ros.org/indigo/Installation)
    
    This command should bring up gazebo interface like this:
    
-   ![02_gazebo](misc_images/02_gazebo.png)
+   ![02_gazebo](misc_images/02_gazebostl.png)
 
 2. Now we need to invoke the controller
 
