@@ -9,9 +9,8 @@
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
   <!-- Convert an xacro and put on parameter server -->
-  <!--param name="robot_description" command="$(find xacro)/xacro.py $(find pr2_description)/robots/pr2.urdf.xacro" /-->
   <param name="robot_description" command="$(find xacro)/xacro.py $(find spyndra_description)/urdf/spyndra.urdf.xacro" />
 
   <!-- Spawn a robot into Gazebo -->
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model pr2" />
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model spyndra" />
 </launch>
