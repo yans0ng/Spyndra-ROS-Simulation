@@ -72,7 +72,7 @@ This project assumes using [ROS Indigo](http://wiki.ros.org/indigo/Installation)
 2. Now we need to invoke the controller
 
    ```
-   $ roslanch spyndra_control spyndra_control.launch
+   $ roslaunch spyndra_control spyndra_control.launch
    ```
    
 3. In order to check if the controller is successfully launched, issue the command
